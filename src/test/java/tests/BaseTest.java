@@ -5,8 +5,7 @@ import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import utils.WebDriverFactory;
 
-import static utils.ApiUtils.createUser;
-import static utils.ApiUtils.deleteUser;
+import static utils.ApiUtils.*;
 
 public class BaseTest {
     protected WebDriver driver;
@@ -29,6 +28,11 @@ public class BaseTest {
 
     protected void registerUser(String email, String password, String name) {
         var response = createUser(email, password, name);
+        accessToken = response.jsonPath().getString("accessToken");
+    }
+
+    protected void authenticateUser(String email, String password) {
+        var response = loginUser(email, password);
         accessToken = response.jsonPath().getString("accessToken");
     }
 }

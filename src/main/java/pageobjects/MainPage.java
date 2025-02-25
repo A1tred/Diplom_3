@@ -46,24 +46,6 @@ public class MainPage extends BasePage {
         clickWithWait(personalAccountLink);
     }
 
-    @Step("Клик по вкладке 'Булки'")
-    public void clickBunsTab() {
-        WebElement bunsTab = driver.findElement(BUNS_TAB);
-        clickWithWait(bunsTab);
-    }
-
-    @Step("Клик по вкладке 'Соусы'")
-    public void clickSaucesTab() {
-        WebElement saucesTab = driver.findElement(SAUCES_TAB);
-        clickWithWait(saucesTab);
-    }
-
-    @Step("Клик по вкладке 'Начинки'")
-    public void clickFillingsTab() {
-        WebElement fillingsTab = driver.findElement(FILLINGS_TAB);
-        clickWithWait(fillingsTab);
-    }
-
     public boolean isTabActive(By tabLocator) {
         return driver.findElement(tabLocator).getAttribute("class").contains(ACTIVE_TAB_CLASS_LOCATOR);
     }

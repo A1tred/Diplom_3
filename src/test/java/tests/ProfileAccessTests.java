@@ -12,7 +12,6 @@ import org.junit.Test;
 import pageobjects.LoginPage;
 import pageobjects.MainPage;
 import pageobjects.ProfilePage;
-import utils.ApiUtils;
 
 import static org.junit.Assert.assertEquals;
 
@@ -35,8 +34,7 @@ public class ProfileAccessTests extends BaseTest {
 
         // Создание случайного пользователя и получение токена для удаления
         testUser = UserGenerator.getRandomUser();
-        var response = ApiUtils.createUser(testUser.getEmail(), testUser.getPassword(), testUser.getName());
-        accessToken = response.jsonPath().getString("accessToken");
+        registerUser(testUser.getEmail(), testUser.getPassword(), testUser.getName());
     }
 
     @Test

@@ -12,7 +12,6 @@ import org.junit.Test;
 import pageobjects.LoginPage;
 import pageobjects.MainPage;
 import pageobjects.RegisterPage;
-import utils.ApiUtils;
 
 import static org.junit.Assert.assertEquals;
 
@@ -49,8 +48,7 @@ public class RegistrationTests extends BaseTest {
         assertEquals(mainPage.getPageUrl(), driver.getCurrentUrl());
 
         // Получение токена пользователя для последующего удаления
-        var response = ApiUtils.loginUser(testUser.getEmail(), testUser.getPassword());
-        accessToken = response.jsonPath().getString("accessToken");
+        authenticateUser(testUser.getEmail(), testUser.getPassword());
     }
 
     @Test
@@ -69,10 +67,8 @@ public class RegistrationTests extends BaseTest {
     @After
     @Step("Очистка данных после теста")
     @Description("Удаляет пользователя, созданного во время теста")
-    public void cleanUpAfterUserRegistration() {
-        if (accessToken != null) {
-            ApiUtils.deleteUser(accessToken);
-        }
+    public void tearDown() {
+        super.tearDown();
     }
 
     @Step("Регистрация пользователя")

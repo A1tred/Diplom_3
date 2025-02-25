@@ -14,7 +14,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pageobjects.LoginPage;
 import pageobjects.MainPage;
 import pageobjects.RegisterPage;
-import utils.ApiUtils;
 
 import java.time.Duration;
 
@@ -40,8 +39,7 @@ public class LoginTests extends BaseTest {
 
         // Создание случайного пользователя
         testUser = UserGenerator.getRandomUser();
-        var response = ApiUtils.createUser(testUser.getEmail(), testUser.getPassword(), testUser.getName());
-        accessToken = response.jsonPath().getString("accessToken");
+        registerUser(testUser.getEmail(), testUser.getPassword(), testUser.getName());
     }
 
     @Test
@@ -89,9 +87,6 @@ public class LoginTests extends BaseTest {
     @Description("Удаляет пользователя, созданного перед тестом")
     public void tearDown() {
         super.tearDown();
-        if (accessToken != null) {
-            ApiUtils.deleteUser(accessToken);
-        }
     }
 
     @Step("Ввод email и пароля, затем клик по кнопке 'Войти'")
